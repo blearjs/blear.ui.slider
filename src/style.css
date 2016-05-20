@@ -1,0 +1,7 @@
+.dkui-slider-list {
+  position: relative;
+  overflow: hidden; }
+
+.dkui-slider-item {
+  position: relative;
+  float: left; }

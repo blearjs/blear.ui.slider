@@ -1,0 +1,11 @@
+.dkui-slider {
+  &-list {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &-item {
+    position: relative;
+    float: left;
+  }
+}
