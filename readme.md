@@ -17,7 +17,7 @@
 
 
 ## 约束的 DOM 结构
-父子结构，多个并列子元素
+父子结构，多个并列子元素（只约束结构）
 ```
 <div class="slider" id="slider">
     <div class="slider-items">
