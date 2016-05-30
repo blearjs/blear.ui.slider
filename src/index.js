@@ -47,6 +47,10 @@ var Slider = UI.extend({
         the[_processing] = false;
         the[_initEvent]();
         the.update();
+        time.nextTick(function () {
+            the.emit('beforeSlide', the[_visibleIndex]);
+            the.emit('afterSlide', the[_visibleIndex]);
+        });
     },
 
 
