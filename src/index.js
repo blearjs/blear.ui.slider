@@ -193,6 +193,29 @@ var Slider = UI.extend({
 
 
     /**
+     * 监听 tap
+     * @param sel {String} 选择器
+     * @param handle {Function} 处理函数
+     * @returns {Slider}
+     */
+    tap: function (sel, handle) {
+        var the = this;
+
+        the.on('tap', function (meta) {
+            var ev = meta.originalEvent;
+            var targetEl = ev.target;
+            var closestEl = selector.closest(targetEl, sel, the[_sliderEl])[0];
+
+            if (closestEl) {
+                handle.call(closestEl, ev);
+            }
+        });
+
+        return the;
+    },
+
+
+    /**
      * 销毁实例
      */
     destroy: function () {
