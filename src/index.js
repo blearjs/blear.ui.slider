@@ -87,7 +87,8 @@ var Slider = UI.extend({
 
         var addLength = 0;
 
-        if (options.loop) {
+        if (options.loop && the.length > 1) {
+            the[_loopable] = true;
             the[_sliderItemFirstEl] = els[0].cloneNode(true);
             the[_sliderItemLastEl] = els[the.length - 1].cloneNode(true);
 
@@ -100,6 +101,8 @@ var Slider = UI.extend({
             modification.insert(the[_sliderItemLastEl], the[_sliderItemsEl], 'afterbegin');
 
             addLength = 2;
+        } else {
+            the[_loopable] = false;
         }
 
         var sliderWidth = vertical ? the[_itemWidth] : the[_itemWidth] * (the.length + addLength);
@@ -118,7 +121,7 @@ var Slider = UI.extend({
             height: the[_itemHeight]
         });
 
-        the[_originalIndex] = the[_visibleIndex] + (options.loop ? 1 : 0);
+        the[_originalIndex] = the[_visibleIndex] + (the[_loopable] ? 1 : 0);
         var translate = the[_calTranslate]();
         the[_setTransform](translate);
         the[_startAutoPlay]();
@@ -236,6 +239,7 @@ var Slider = UI.extend({
     }
 });
 var _options = Slider.sole();
+var _loopable = Slider.sole();
 var _sliderEl = Slider.sole();
 var _sliderItemsEl = Slider.sole();
 var _sliderItemEls = Slider.sole();
@@ -323,8 +327,9 @@ pro[_beforeTransform] = function (step, next) {
 
     var nowVisibleIndex = the[_visibleIndex];
     the[_visibleIndex] += step;
+    the[_processing] = true;
 
-    if (options.loop) {
+    if (the[_loopable]) {
         var translate = '';
         var nowTranslate = the[_translate];
         var willTranslate = the[_calTranslate]();
@@ -376,11 +381,6 @@ pro[_beforeTransform] = function (step, next) {
 pro[_processStepPlay] = function (step, callback) {
     var the = this;
 
-    if (the[_processing]) {
-        return the;
-    }
-
-    the[_processing] = true;
     the[_beforeTransform](step, function (can) {
         if (!can) {
             the[_processing] = false;
@@ -497,7 +497,7 @@ pro[_initEvent] = function () {
         if (touchable) {
             touchable = false;
             var delta = the[_translate] - touchStartTranslate;
-            var canChange = Math.abs(delta) > options.minChangeLength;
+            var canChange = the.length > 1 && Math.abs(delta) > options.minChangeLength;
 
             if (!canChange) {
                 the[_reset]();
