@@ -65,6 +65,8 @@ var Slider = UI.extend({
         var vertical = options.direction !== 'x';
 
         the[_pauseAutoPlay]();
+
+
         array.each(els, function (index, el) {
             attribute.style(el, {
                 width: options.width,
@@ -78,6 +80,10 @@ var Slider = UI.extend({
         the[_itemWidth] = layout.outerWidth(els[0]);
         the[_itemHeight] = layout.outerHeight(els[0]);
         the.length = els.length;
+
+        if (!the.length) {
+            return the;
+        }
 
         if (the[_sliderItemFirstEl]) {
             the.length -= 2;
