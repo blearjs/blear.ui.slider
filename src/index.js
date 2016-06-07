@@ -65,8 +65,9 @@ var Slider = UI.extend({
         var vertical = options.direction !== 'x';
 
         the[_pauseAutoPlay]();
+        the.length = els.length;
 
-
+        the.emit('beforeUpdate');
         array.each(els, function (index, el) {
             attribute.style(el, {
                 width: options.width,
@@ -75,13 +76,14 @@ var Slider = UI.extend({
                 padding: 0,
                 margin: 0
             });
+            the.emit('update', index, the.length);
         });
 
         the[_itemWidth] = layout.outerWidth(els[0]);
         the[_itemHeight] = layout.outerHeight(els[0]);
-        the.length = els.length;
 
         if (!the.length) {
+            the.emit('afterUpdate');
             return the;
         }
 
@@ -131,6 +133,7 @@ var Slider = UI.extend({
         var translate = the[_calTranslate]();
         the[_setTransform](translate);
         the[_startAutoPlay]();
+        the.emit('afterUpdate');
 
         return the;
     },
