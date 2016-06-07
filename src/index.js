@@ -79,13 +79,13 @@ var Slider = UI.extend({
             the.emit('update', index, the.length);
         });
 
-        the[_itemWidth] = layout.outerWidth(els[0]);
-        the[_itemHeight] = layout.outerHeight(els[0]);
-
         if (!the.length) {
             the.emit('afterUpdate');
             return the;
         }
+
+        the[_itemWidth] = layout.outerWidth(els[0]);
+        the[_itemHeight] = layout.outerHeight(els[0]);
 
         if (the[_sliderItemFirstEl]) {
             the.length -= 2;

@@ -1,6 +1,6 @@
 {
   "name": "blear.ui.slider",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "轮播 UI",
   "scripts": {
     "live": "browser-sync start --config bs-config.js"
