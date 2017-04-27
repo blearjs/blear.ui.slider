@@ -2,6 +2,7 @@
  * Slider
  * @author ydr.me
  * @create 2016-05-11 18:08
+ * @update 2017年04月27日16:04:03
  */
 
 
@@ -18,7 +19,6 @@ var layout = require('blear.core.layout');
 var modification = require('blear.core.modification');
 
 var namespace = UI.UI_CLASS + '-slider';
-var gid = 0;
 var defaults = {
     el: '',
     width: 'auto',
@@ -249,31 +249,32 @@ var Slider = UI.extend({
         the[_destroyed] = true;
     }
 });
-var _options = Slider.sole();
-var _loopable = Slider.sole();
-var _sliderEl = Slider.sole();
-var _sliderItemsEl = Slider.sole();
-var _sliderItemEls = Slider.sole();
-var _sliderItemFirstEl = Slider.sole();
-var _sliderItemLastEl = Slider.sole();
-var _itemWidth = Slider.sole();
-var _itemHeight = Slider.sole();
-var _visibleIndex = Slider.sole();
-var _originalIndex = Slider.sole();
-var _calTranslate = Slider.sole();
-var _getTranslate3dStyle = Slider.sole();
-var _translate = Slider.sole();
-var _setTransform = Slider.sole();
-var _beforeTransform = Slider.sole();
-var _processing = Slider.sole();
-var _processStepPlay = Slider.sole();
-var _pauseAutoPlay = Slider.sole();
-var _startAutoPlay = Slider.sole();
-var _autoTimer = Slider.sole();
-var _initEvent = Slider.sole();
-var _touchable = Slider.sole();
-var _reset = Slider.sole();
-var _destroyed = Slider.sole();
+var sole = Slider.sole;
+var _options = sole();
+var _loopable = sole();
+var _sliderEl = sole();
+var _sliderItemsEl = sole();
+var _sliderItemEls = sole();
+var _sliderItemFirstEl = sole();
+var _sliderItemLastEl = sole();
+var _itemWidth = sole();
+var _itemHeight = sole();
+var _visibleIndex = sole();
+var _originalIndex = sole();
+var _calTranslate = sole();
+var _getTranslate3dStyle = sole();
+var _translate = sole();
+var _setTransform = sole();
+var _beforeTransform = sole();
+var _processing = sole();
+var _processStepPlay = sole();
+var _pauseAutoPlay = sole();
+var _startAutoPlay = sole();
+var _autoTimer = sole();
+var _initEvent = sole();
+var _touchable = sole();
+var _reset = sole();
+var _destroyed = sole();
 var pro = Slider.prototype;
 
 
