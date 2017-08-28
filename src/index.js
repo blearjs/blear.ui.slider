@@ -404,8 +404,10 @@ pro[_processStepPlay] = function (step, callback) {
         var to = {
             transform: the[_getTranslate3dStyle](translate)
         };
+        var stepType = step > 0 ? 'Next' : 'Prev';
 
         the.emit('beforeSlide', the[_visibleIndex], to);
+        the.emit('before' + stepType);
         the[_options].slideAnimation.call(the, the[_sliderItemsEl], to, function () {
             the[_processing] = false;
 
@@ -414,6 +416,7 @@ pro[_processStepPlay] = function (step, callback) {
             }
 
             the.emit('afterSlide', the[_visibleIndex]);
+            the.emit('after' + stepType);
         });
     });
 };
