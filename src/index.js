@@ -12,6 +12,7 @@ var UI = require('blear.ui');
 var object = require('blear.utils.object');
 var array = require('blear.utils.array');
 var time = require('blear.utils.time');
+var typeis = require('blear.utils.typeis');
 var Touchable = require('blear.classes.touchable');
 var selector = require('blear.core.selector');
 var attribute = require('blear.core.attribute');
@@ -61,11 +62,15 @@ var Slider = UI.extend({
      * 更新视图
      * @returns {Slider}
      */
-    update: function () {
+    update: function (index) {
         var the = this;
         var options = the[_options];
         var els = the[_sliderItemEls] = selector.children(the[_sliderItemsEl]);
         var vertical = options.direction !== 'x';
+
+        if(typeis.Number(index)) {
+            the[_visibleIndex] = index;
+        }
 
         the[_pauseAutoPlay]();
         the.length = els.length;
