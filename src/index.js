@@ -29,6 +29,7 @@ var defaults = {
     auto: true,
     interval: 5000,
     minChangeLength: 50,
+    active: 0,
     slideAnimation: function (el, to, done) {
         attribute.style(el, to);
         done();
@@ -39,11 +40,11 @@ var Slider = UI.extend({
     constructor: function (options) {
         var the = this;
 
-        the[_options] = object.assign(true, {}, defaults, options);
+        options = the[_options] = object.assign(true, {}, defaults, options);
         Slider.parent(the, the[_options]);
         the[_sliderEl] = selector.query(options.el)[0];
         the[_sliderItemsEl] = selector.children(the[_sliderEl])[0];
-        the[_visibleIndex] = 0;
+        the[_visibleIndex] = options.active;
         the[_processing] = false;
         the[_initEvent]();
         the.update();
@@ -95,7 +96,7 @@ var Slider = UI.extend({
             modification.remove(the[_sliderItemLastEl]);
         }
 
-        var addLength = 0;
+        var clonedLength = 0;
 
         if (options.loop && the.length > 1) {
             the[_loopable] = true;
@@ -110,13 +111,13 @@ var Slider = UI.extend({
             modification.insert(the[_sliderItemFirstEl], the[_sliderItemsEl], 'beforeend');
             modification.insert(the[_sliderItemLastEl], the[_sliderItemsEl], 'afterbegin');
 
-            addLength = 2;
+            clonedLength = 2;
         } else {
             the[_loopable] = false;
         }
 
-        var sliderWidth = vertical ? the[_itemWidth] : the[_itemWidth] * (the.length + addLength);
-        var sliderHeight = vertical ? the[_itemHeight] * (the.length + addLength) : the[_itemHeight];
+        var sliderWidth = vertical ? the[_itemWidth] : the[_itemWidth] * (the.length + clonedLength);
+        var sliderHeight = vertical ? the[_itemHeight] * (the.length + clonedLength) : the[_itemHeight];
 
         attribute.style(the[_sliderItemsEl], {
             width: sliderWidth,
@@ -124,7 +125,6 @@ var Slider = UI.extend({
             padding: 0,
             margin: 0
         });
-
         attribute.style(the[_sliderEl], {
             overflow: 'hidden',
             width: the[_itemWidth],
