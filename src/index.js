@@ -29,7 +29,7 @@ var defaults = {
     loop: true,
     auto: true,
     interval: 5000,
-    minChangeLength: 50,
+    minChangeDistance: 50,
     active: 0,
     slideAnimation: function (el, to, done) {
         attribute.style(el, to);
@@ -292,7 +292,7 @@ pro[_calTranslate] = function () {
     if (the[_options].direction === 'x') {
         return (the[_translate] = -the[_itemWidth] * the[_originalIndex]);
     } else {
-        return (the[_translate] = -the[_itemWidth] * the[_originalIndex]);
+        return (the[_translate] = -the[_itemHeight] * the[_originalIndex]);
     }
 };
 
@@ -491,7 +491,7 @@ pro[_initEvent] = function () {
 
     the[_touchable] = new Touchable({
         el: the[_sliderEl],
-        swipeMinDistance: options.minChangeLength
+        swipeMinDistance: options.minChangeDistance
     });
 
     the[_touchable].on('touchStart', function () {
@@ -517,7 +517,7 @@ pro[_initEvent] = function () {
         if (touchable) {
             touchable = false;
             var delta = the[_translate] - touchStartTranslate;
-            var canChange = the.length > 1 && Math.abs(delta) > options.minChangeLength;
+            var canChange = the.length > 1 && Math.abs(delta) > options.minChangeDistance;
 
             if (!canChange) {
                 the[_reset]();

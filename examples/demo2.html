@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0,minimal-ui">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #demo2 {
+        width: 500px;
+        height: 300px;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    button {
+        padding: 20px;
+    }
+
+    li:nth-child(1) {
+        background: #f0bf94;
+    }
+
+    li:nth-child(2) {
+        background: #ffa6b5;
+    }
+
+    li:nth-child(3) {
+        background: #9aa8f0;
+    }
+</style>
+
+<div id="demo2">
+    <ul>
+        <li>slide1 <button id="btn1">click me</button></li>
+        <li>slide2</li>
+        <li>slide3</li>
+    </ul>
+</div>
+
+
+<script src="/node_modules/coolie.js/coolie.js"
+data-config="/examples/coolie-config.js"
+data-main="demo2.js"></script>
