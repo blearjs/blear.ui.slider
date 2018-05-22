@@ -28,6 +28,8 @@ var defaults = {
     addClass: '',
     loop: true,
     auto: true,
+    spring: true,
+    preventDefault: true,
     interval: 5000,
     minChangeDistance: 50,
     active: 0,
@@ -68,7 +70,7 @@ var Slider = UI.extend({
         var els = the[_sliderItemEls] = selector.children(the[_sliderItemsEl]);
         var vertical = options.direction !== 'x';
 
-        if(typeis.Number(index)) {
+        if (typeis.Number(index)) {
             the[_visibleIndex] = index;
         }
 
@@ -491,42 +493,44 @@ pro[_initEvent] = function () {
 
     the[_touchable] = new Touchable({
         el: the[_sliderEl],
-        swipeMinDistance: options.minChangeDistance
+        swipeMinDistance: options.minChangeDistance,
+        preventDefault: options.preventDefault
     });
 
-    the[_touchable].on('touchStart', function () {
-        the[_pauseAutoPlay]();
+    if (options.spring) {
+        the[_touchable].on('touchStart', function () {
+            the[_pauseAutoPlay]();
 
-        if (the[_processing]) {
-            return;
-        }
-
-        touchable = true;
-        touchStartTranslate = the[_calTranslate]();
-    });
-
-    the[_touchable].on('touchMove', function (meta) {
-        if (touchable) {
-            var delta = horizontal ? meta.deltaX : meta.deltaY;
-            the[_translate] = touchStartTranslate + delta;
-            the[_setTransform](the[_translate]);
-        }
-    });
-
-    the[_touchable].on('touchEnd', function () {
-        if (touchable) {
-            touchable = false;
-            var delta = the[_translate] - touchStartTranslate;
-            var canChange = the.length > 1 && Math.abs(delta) > options.minChangeDistance;
-
-            if (!canChange) {
-                the[_reset]();
+            if (the[_processing]) {
+                return;
             }
-        }
 
-        the[_startAutoPlay]();
-    });
+            touchable = true;
+            touchStartTranslate = the[_calTranslate]();
+        });
 
+        the[_touchable].on('touchMove', function (meta) {
+            if (touchable) {
+                var delta = horizontal ? meta.deltaX : meta.deltaY;
+                the[_translate] = touchStartTranslate + delta;
+                the[_setTransform](the[_translate]);
+            }
+        });
+
+        the[_touchable].on('touchEnd', function () {
+            if (touchable) {
+                touchable = false;
+                var delta = the[_translate] - touchStartTranslate;
+                var canChange = the.length > 1 && Math.abs(delta) > options.minChangeDistance;
+
+                if (!canChange) {
+                    the[_reset]();
+                }
+            }
+
+            the[_startAutoPlay]();
+        });
+    }
 
     if (options.direction === 'x') {
         the[_touchable].on('swipeLeft', function () {

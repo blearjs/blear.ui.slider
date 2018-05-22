@@ -9,14 +9,23 @@
 'use strict';
 
 var Slider = require('../src/index');
+var Animation = require('blear.classes.animation');
 
-new Slider({
+var s1 = new Slider({
     el: '#demo2',
-    width: 500,
-    height: 300,
+    width: window.innerWidth,
+    height: window.innerHeight,
     loop: false,
     auto: false,
-    direction: 'y'
+    spring: false,
+    direction: 'y',
+    slideAnimation: function (el, to, done) {
+        var an = new Animation(el);
+
+        an.transit(to);
+        an.start(done);
+        an.destroy();
+    }
 });
 
 document.getElementById('btn1').onclick = function () {

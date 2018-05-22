@@ -47,6 +47,7 @@
   },
   "peerDependencies": {},
   "devDependencies": {
+    "blear.classes.animation": "^1.1.1",
     "coolie.js": "^2.2.0"
   },
   "license": "MIT"
